@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day</title>
+    <style>
+        :root {
+            --primary-pink: #ffafbd;
+            --dark-pink: #ffc3a0;
+            --string-color: #7d5a50;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: linear-gradient(to bottom, #ffafbd, #ffc3a0);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ส่วนของสายธงแขวนรูป */
+        .bunting-container {
+            width: 100%;
+            padding: 50px 0;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-top: 5px dashed var(--string-color);
+            margin-top: 40px;
+        }
+
+        .photo-flag {
+            width: 150px;
+            height: 200px;
+            background: white;
+            border: 5px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            transform-origin: top center;
+            animation: swing 3s ease-in-out infinite alternate;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .photo-flag:hover {
+            transform: scale(1.1) rotate(0deg) !important;
+            z-index: 10;
+        }
+
+        .photo-flag img {
+            width: 100%;
+            height: 80%;
+            object-fit: cover;
+        }
+
+        .flag-caption {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            padding-top: 5px;
+        }
+
+        /* สร้างเชือกสำหรับแต่ละรูป */
+        .photo-flag::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            width: 2px;
+            height: 15px;
+            background: var(--string-color);
+        }
+
+        @keyframes swing {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
+        }
+
+        /* ข้อความหลัก */
+        .main-message {
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-top: 50px;
+            z-index: 5;
+        }
+
+        /* กลีบดอกไม้โปรย */
+        .petal {
+            position: fixed;
+            top: -10%;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-message">
+        <h1>Happy Valentine's Day! 💖</h1>
+        <p>You mean the world to me.</p>
+    </div>
+
+    <div class="bunting-container">
+        <div class="photo-flag" style="animation-delay: 0.1s;">
+            <img src="https://via.placeholder.com/150x200?text=Your+Photo+1" alt="Memory 1">
+            <div class="flag-caption">Our First Date</div>
+        </div>
+        <div class="photo-flag" style="animation-delay: 0.5s;">
+            <img src="https://via.placeholder.com/150x200?text=Your+Photo+2" alt="Memory 2">
+            <div class="flag-caption">Summer Trip</div>
+        </div>
+        <div class="photo-flag" style="animation-delay: 0.3s;">
+            <img src="https://via.placeholder.com/150x200?text=Your+Photo+3" alt="Memory 3">
+            <div class="flag-caption">Dinner</div>
+        </div>
+    </div>
+
+    <script>
+        // ฟังก์ชันสร้างกลีบดอกไม้/หัวใจ
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            
+            // สุ่มเลือกว่าจะเป็นดอกไม้หรือหัวใจ
+            const items = ['🌸', '❤️', '🌹', '✨'];
+            petal.innerText = items[Math.floor(Math.random() * items.length)];
+            
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.fontSize = Math.random() * (25 - 10) + 10 + 'px';
+            petal.style.animationDuration = Math.random() * (5 - 3) + 3 + 's';
+            petal.style.opacity = Math.random();
+            
+            document.body.appendChild(petal);
+            
+            setTimeout(() => {
+                petal.remove();
+            }, 5000);
+        }
+
+        setInterval(createPetal, 300);
+    </script>
+</body>
+</html>
