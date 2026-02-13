@@ -8,188 +8,230 @@
         :root {
             --primary-pink: #ffafbd;
             --dark-pink: #ffc3a0;
-            --string-color: #7d5a50;
+            --white: #ffffff;
+            --text-color: #555;
         }
 
         body {
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            background: linear-gradient(to bottom, #ffafbd, #ffc3a0);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #ffafbd, #ffc3a0);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
 
-        /* ส่วนของสายธงแขวนรูป */
-        .bunting-container {
+        /* การจัดการหน้า (Pages) */
+        .page {
+            display: none; /* ซ่อนทุกหน้าเป็นค่าเริ่มต้น */
             width: 100%;
-            padding: 50px 0;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            border-top: 5px dashed var(--string-color);
-            margin-top: 40px;
+            max-width: 600px;
+            padding: 40px 20px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
         }
 
-        .photo-flag {
-            width: 150px;
-            height: 200px;
+        .active { display: block; } /* แสดงเฉพาะหน้าที่เลือก */
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* หน้า 1: Happy Valentine's Day */
+        .hero-text {
+            font-size: 4rem;
+            color: white;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+            margin-top: 100px;
+        }
+
+        /* หน้า 2: Photo Cards (3 รูป) */
+        .photo-grid {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .photo-card {
             background: white;
-            border: 5px solid white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        /* หน้า 3: YouTube & Lyrics */
+        .video-container {
             position: relative;
-            transform-origin: top center;
-            animation: swing 3s ease-in-out infinite alternate;
+            padding-bottom: 56.25%; /* 16:9 ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+        .lyrics-box {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            color: #c2185b;
+            font-style: italic;
+            white-space: pre-line; /* ให้ขึ้นบรรทัดใหม่ตามที่พิมพ์ */
+        }
+
+        /* หน้า 4: Letter */
+        .letter-card {
+            background: #fff9f9;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            border-left: 5px solid #ffafbd;
+        }
+        .letter-photo {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* ปุ่มนำทาง (Navigation Buttons) */
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            background: white;
+            color: #ffafbd;
+            font-weight: bold;
             cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
-
-        .photo-flag:hover {
-            transform: scale(1.1) rotate(0deg) !important;
-            z-index: 10;
+        button:hover {
+            transform: scale(1.1);
+            background: #ffecf0;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
-        .photo-flag img {
-            width: 100%;
-            height: 80%;
-            object-fit: cover;
-        }
-
-        .flag-caption {
-            text-align: center;
-            font-size: 14px;
-            color: #555;
-            padding-top: 5px;
-        }
-
-        .photo-flag::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            width: 2px;
-            height: 15px;
-            background: var(--string-color);
-        }
-
-        @keyframes swing {
-            0% { transform: rotate(-5deg); }
-            100% { transform: rotate(5deg); }
-        }
-
-        /* ข้อความหลัก */
-        .main-message {
-            text-align: center;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            margin-top: 50px;
-            z-index: 5;
-        }
-
-        /* --- ส่วนที่เพิ่มใหม่: ตกแต่งช่อดอกกุหลาบ --- */
-        .rose-bouquet-section {
-            margin: 60px 0;
-            text-align: center;
-            z-index: 5;
-            padding: 0 20px;
-        }
-
-        .rose-image {
-            max-width: 100%;
-            width: 350px; /* ปรับขนาดตามต้องการ */
-            height: auto;
-            border-radius: 20px;
-            border: 10px solid white;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .rose-image:hover {
-            transform: scale(1.08) rotate(2deg);
-        }
-
-        .rose-label {
-            display: block;
-            margin-top: 15px;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-        }
-
-        /* กลีบดอกไม้โปรย */
+        /* กลีบดอกไม้โปรย (จากโค้ดเดิม) */
         .petal {
             position: fixed;
             top: -10%;
-            user-select: none;
             pointer-events: none;
             z-index: 1;
             animation: fall linear forwards;
         }
-
-        @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-            }
-        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <div class="main-message">
-        <h1>Happy Valentine's Day! 💖</h1>
-        <p>You mean the world to me.</p>
+    <div class="page active" id="page1">
+        <h1 class="hero-text">Happy Valentine's Day! 💖</h1>
+        <p style="color: white; font-size: 1.5rem;">To someone very special.</p>
     </div>
 
-    <div class="bunting-container">
-        <div class="photo-flag" style="animation-delay: 0.1s;">
-            <img src="https://via.placeholder.com/150x200?text=Your+Photo+1" alt="Memory 1">
-            <div class="flag-caption">Our First Date</div>
-        </div>
-        <div class="photo-flag" style="animation-delay: 0.5s;">
-            <img src="https://via.placeholder.com/150x200?text=Your+Photo+2" alt="Memory 2">
-            <div class="flag-caption">Summer Trip</div>
-        </div>
-        <div class="photo-flag" style="animation-delay: 0.3s;">
-            <img src="https://via.placeholder.com/150x200?text=Your+Photo+3" alt="Memory 3">
-            <div class="flag-caption">Dinner</div>
+    <div class="page" id="page2">
+        <h2 style="color: white;">Our Memories</h2>
+        <div class="photo-grid">
+            <div class="photo-card"><img src="photo1.jpg" alt="Memory 1"></div>
+            <div class="photo-card"><img src="photo2.jpg" alt="Memory 2"></div>
+            <div class="photo-card"><img src="photo3.jpg" alt="Memory 3"></div>
         </div>
     </div>
 
-    <div class="rose-bouquet-section">
-        <img 
-            src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?q=80&w=1000&auto=format&fit=crop" 
-            alt="Beautiful Rose Bouquet" 
-            class="rose-image"
-        >
-        <span class="rose-label">For You 🌹</span>
+    <div class="page" id="page3">
+        <h2 style="color: white;">Song for you 🎵</h2>
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+            </iframe>
+        </div>
+        <div class="lyrics-box">
+            "ใส่เนื้อเพลงที่คุณชอบตรงนี้...
+            เนื้อเพลงบรรทัดที่สอง...
+            เนื้อเพลงบรรทัดที่สาม..."
+        </div>
+    </div>
+
+    <div class="page" id="page4">
+        <h2 style="color: white;">A Message for You</h2>
+        <div class="letter-card">
+            <img src="final_photo.jpg" alt="Us" class="letter-photo">
+            <p style="text-align: left; line-height: 1.6;">
+                ถึง [ชื่อคนพิเศษของคุณ],<br><br>
+                ขอบคุณที่อยู่ข้างๆ กันมาตลอดนะ... (เขียนความในใจของคุณที่นี่) <br><br>
+                ด้วยรัก,<br>
+                [ชื่อของคุณ]
+            </p>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button id="prevBtn" onclick="changePage(-1)" disabled>Previous</button>
+        <button id="nextBtn" onclick="changePage(1)">Next</button>
     </div>
 
     <script>
+        let currentPage = 1;
+        const totalPages = 4;
+
+        function changePage(step) {
+            // ซ่อนหน้าปัจจุบัน
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            
+            // เปลี่ยนหน้า
+            currentPage += step;
+            
+            // แสดงหน้าใหม่
+            document.getElementById(`page${currentPage}`).classList.add('active');
+
+            // จัดการปุ่ม
+            document.getElementById('prevBtn').disabled = (currentPage === 1);
+            document.getElementById('nextBtn').disabled = (currentPage === totalPages);
+            
+            // เลื่อนหน้าจอกลับไปด้านบนทุกครั้งที่เปลี่ยนหน้า
+            window.scrollTo(0, 0);
+        }
+
+        // ฟังก์ชันสร้างกลีบดอกไม้โปรย (คงเดิม)
         function createPetal() {
             const petal = document.createElement('div');
             petal.classList.add('petal');
-            
             const items = ['🌸', '❤️', '🌹', '✨'];
             petal.innerText = items[Math.floor(Math.random() * items.length)];
-            
             petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.fontSize = Math.random() * (25 - 10) + 10 + 'px';
-            petal.style.animationDuration = Math.random() * (5 - 3) + 3 + 's';
+            petal.style.fontSize = Math.random() * 20 + 10 + 'px';
+            petal.style.animationDuration = Math.random() * 2 + 3 + 's';
             petal.style.opacity = Math.random();
-            
             document.body.appendChild(petal);
-            
-            setTimeout(() => {
-                petal.remove();
-            }, 5000);
+            setTimeout(() => petal.remove(), 5000);
         }
-
         setInterval(createPetal, 300);
     </script>
 </body>
