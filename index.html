@@ -67,7 +67,6 @@
             padding-top: 5px;
         }
 
-        /* สร้างเชือกสำหรับแต่ละรูป */
         .photo-flag::before {
             content: '';
             position: absolute;
@@ -90,6 +89,37 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             margin-top: 50px;
             z-index: 5;
+        }
+
+        /* --- ส่วนที่เพิ่มใหม่: ตกแต่งช่อดอกกุหลาบ --- */
+        .rose-bouquet-section {
+            margin: 60px 0;
+            text-align: center;
+            z-index: 5;
+            padding: 0 20px;
+        }
+
+        .rose-image {
+            max-width: 100%;
+            width: 350px; /* ปรับขนาดตามต้องการ */
+            height: auto;
+            border-radius: 20px;
+            border: 10px solid white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .rose-image:hover {
+            transform: scale(1.08) rotate(2deg);
+        }
+
+        .rose-label {
+            display: block;
+            margin-top: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
 
         /* กลีบดอกไม้โปรย */
@@ -131,13 +161,20 @@
         </div>
     </div>
 
+    <div class="rose-bouquet-section">
+        <img 
+            src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?q=80&w=1000&auto=format&fit=crop" 
+            alt="Beautiful Rose Bouquet" 
+            class="rose-image"
+        >
+        <span class="rose-label">For You 🌹</span>
+    </div>
+
     <script>
-        // ฟังก์ชันสร้างกลีบดอกไม้/หัวใจ
         function createPetal() {
             const petal = document.createElement('div');
             petal.classList.add('petal');
             
-            // สุ่มเลือกว่าจะเป็นดอกไม้หรือหัวใจ
             const items = ['🌸', '❤️', '🌹', '✨'];
             petal.innerText = items[Math.floor(Math.random() * items.length)];
             
